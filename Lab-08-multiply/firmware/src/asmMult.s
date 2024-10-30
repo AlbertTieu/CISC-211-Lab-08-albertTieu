@@ -76,6 +76,37 @@ asmMult:
     
     /*** STUDENTS: Place your code BELOW this line!!! **************/
     
+    /*copy multiplicand and multiplier values into variables*/
+    ldr r2, =a_Multiplicand
+    str r0, [r2]
+    ldr r2, = b_Multiplier
+    str r1, [r2]
+    
+    /*check for invalid value*/
+    cmp r0, 65536
+    bgt error
+    
+    cmp r1, 65536
+    bgt error
+    
+    /*get msb of both values*/
+    lsr r2, r0, #7
+    ldr r3, =a_Sign
+    str r2, [r3]
+    
+    lsr r2, r1, #7
+    ldr r3, =b_Sign
+    str r2, [r3]
+    
+    /**/
+    
+    /*branch for error*/
+    error:
+	ldr r1, =rng_Error
+	mov r2, 0
+	str r2, [r1]
+	mov r0, 0
+	b done
     
     /*** STUDENTS: Place your code ABOVE this line!!! **************/
 
